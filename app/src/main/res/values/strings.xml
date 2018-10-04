@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ShopFashion</string>
+    <string name="FACEBOOK_APP_ID">235938043765579</string>
+    <string name="ACCOUNT_KIT_CLIENT_TOKEN">3e73c5928c1e0649d8a7d9c8bec93ad7</string>
+    <string name="profile">PROFILE</string>
+    <string name="feed">FEED</string>
+    <string name="activity">HOME</string>
+    <string name="settings">SETTINGS</string>
+
+</resources>

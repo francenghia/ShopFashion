@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/guillotine_background"
+    android:orientation="vertical">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        app:contentInsetStart="0dp"
+        style="@style/Toolbar">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:id="@+id/guillotine_hamburger"
+            android:src="@drawable/ic_menu_90" />
+        <com.example.franc.shopfashion.SideMenuNavigation.DesignTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Navigation"
+            android:textColor="@android:color/white"
+            android:textSize="23sp" />
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_avatar"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:src="@drawable/imagebk"/>
+        <LinearLayout
+            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+            <com.example.franc.shopfashion.SideMenuNavigation.DesignTextView
+                android:id="@+id/txtName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+            <com.example.franc.shopfashion.SideMenuNavigation.DesignTextView
+                android:id="@+id/txtPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone"
+                android:textColor="@android:color/white"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:drawableLeft="@drawable/ic_exit_to_app_black_24dp"
+        android:drawablePadding="12dp"
+        android:padding="10dp"
+        android:text="Log Out"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+</LinearLayout>
