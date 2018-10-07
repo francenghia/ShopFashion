@@ -13,7 +13,7 @@ import com.example.franc.shopfashion.Retrofit2Fashion.FashionAPIObservable;
 import com.example.franc.shopfashion.Retrofit2Fashion.RetrofitClient;
 
 public class Common {
-    public static final String BASE_URL = "http://192.168.4.135/fashionshop/";
+    public static final String BASE_URL = "http://............../fashionshop/";
 
     public static FashionAPIObservable getAPI(){
         return RetrofitClient.getClient(BASE_URL).create(FashionAPIObservable.class);
