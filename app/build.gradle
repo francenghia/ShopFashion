@@ -80,4 +80,7 @@ dependencies {
 
     //a choose file
     implementation project(':aFileChooser')
+
+    //Search bar item
+    implementation 'com.github.mancj:MaterialSearchBar:+'
 }

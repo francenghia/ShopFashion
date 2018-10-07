@@ -13,6 +13,7 @@ import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -33,6 +34,7 @@ public interface FashionAPIObservable {
     @POST("getfashion.php")
     Observable<List<Fashion>> getFashion(@Field("menuid")String menuID);
 
+
     @FormUrlEncoded
     @POST("getuser.php")
     Call<User> getUserInformation(@Field("phone")String phone);
@@ -47,5 +49,9 @@ public interface FashionAPIObservable {
     @Multipart
     @POST("upload.php")
     Call<String> uploadFile(@Part MultipartBody.Part phone, @Part MultipartBody.Part flie);
+
+
+    @GET("getallshop.php")
+    Observable<List<Fashion>> getAllShop();
 
 }

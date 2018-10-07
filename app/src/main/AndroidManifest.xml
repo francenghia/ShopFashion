@@ -38,7 +38,8 @@
             android:name=".DetailsProductFashion"
             android:parentActivityName=".FashionActivity" />
         <activity android:name=".CartActivity" />
-        <activity android:name=".FavoriteListActivity"></activity>
+        <activity android:name=".FavoriteListActivity" />
+        <activity android:name=".SearchActivity"></activity>
     </application>
 
 </manifest>
