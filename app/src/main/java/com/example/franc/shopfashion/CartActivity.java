@@ -1,17 +1,27 @@
 package com.example.franc.shopfashion;
 
+import android.graphics.Color;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.franc.shopfashion.Adapter.CartAdapter;
+import com.example.franc.shopfashion.Adapter.CartViewHolder;
+import com.example.franc.shopfashion.Adapter.FavoriteViewHolder;
 import com.example.franc.shopfashion.Common.Common;
 import com.example.franc.shopfashion.Database.ModelDB.Cart;
+import com.example.franc.shopfashion.Database.ModelDB.Favorite;
+import com.example.franc.shopfashion.Utils.RecyclerItemTouchHelper;
+import com.example.franc.shopfashion.Utils.RecyclerItemTouchHelperListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -19,20 +29,29 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class CartActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity implements RecyclerItemTouchHelperListener {
     RecyclerView recycler_cart;
     Button btn_buy_now;
 
     CompositeDisposable compositeDisposable;
+    CartAdapter cartAdapter;
+
+    RelativeLayout rootLayout;
+
+    List<Cart> cartList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
+        rootLayout =findViewById(R.id.rootLayout);
         compositeDisposable = new CompositeDisposable();
         btn_buy_now =findViewById(R.id.btn_buy_now);
         recycler_cart =findViewById(R.id.recyclerCart);
         recycler_cart.setHasFixedSize(true);
+
+        ItemTouchHelper.SimpleCallback simpleCallback = new RecyclerItemTouchHelper(0,ItemTouchHelper.LEFT,this);
+        new ItemTouchHelper(simpleCallback).attachToRecyclerView(recycler_cart);
+
         recycler_cart.setLayoutManager(new LinearLayoutManager(this));
 
         btn_buy_now.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +80,8 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void displayItemCart(List<Cart> carts) {
-        CartAdapter cartAdapter= new CartAdapter(this,carts);
+        cartList =carts;
+        cartAdapter= new CartAdapter(this,carts);
         recycler_cart.setAdapter(cartAdapter);
     }
 
@@ -77,22 +97,42 @@ public class CartActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    boolean isBackButtonClicked = false;
-
-    @Override
-    public void onBackPressed() {
-        if(isBackButtonClicked) {
-            super.onBackPressed();
-            return;
-        }
-        this.isBackButtonClicked =true;
-        Toast.makeText(this, "Pleas click Back again to exit", Toast.LENGTH_SHORT).show();
-
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
-        isBackButtonClicked = false;
+        loadCart();
+    }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+        if(viewHolder instanceof CartViewHolder)
+        {
+            String name = cartList.get(viewHolder.getAdapterPosition()).name;
+
+            final Cart deleteItem =cartList.get(viewHolder.getAdapterPosition());
+
+            final int deleteIndex = viewHolder.getAdapterPosition();
+
+            cartAdapter.removeItem(deleteIndex);
+
+            Common.cartRepository.deleteToCart(deleteItem);
+
+            Snackbar snackbar= Snackbar.make(rootLayout,new StringBuilder(name).append(" removed from Cart List").toString(),Snackbar.LENGTH_LONG);
+
+            snackbar.setAction("UNDO", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    cartAdapter.restoreItem(deleteItem,deleteIndex);
+                    Common.cartRepository.insertToCart(deleteItem);
+
+                }
+            });
+            snackbar.setActionTextColor(Color.YELLOW);
+            snackbar.show();
+
+
+
+        }
     }
 }

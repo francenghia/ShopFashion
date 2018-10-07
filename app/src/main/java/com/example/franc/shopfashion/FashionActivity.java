@@ -73,7 +73,7 @@ public class FashionActivity extends AppCompatActivity {
             return;
         }
         this.isBackButtonClicked =true;
-        Toast.makeText(this, "Pleas click Back again to exit", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Please click Back again to exit", Toast.LENGTH_SHORT).show();
 
     }
 

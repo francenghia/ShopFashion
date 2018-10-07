@@ -31,7 +31,4 @@ public class Cart {
 
     @ColumnInfo(name = "color")
     public String color;
-
-
-
 }

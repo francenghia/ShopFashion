@@ -1,8 +1,11 @@
 package com.example.franc.shopfashion.Common;
 
+import android.arch.persistence.room.RoomDatabase;
+
 import com.example.franc.shopfashion.Database.DataSource.CartRepository;
+import com.example.franc.shopfashion.Database.DataSource.FavoriteRepository;
 import com.example.franc.shopfashion.Database.Local.CartDataSource;
-import com.example.franc.shopfashion.Database.Local.CartDatabase;
+import com.example.franc.shopfashion.Database.Local.NNRoomDatabase;
 import com.example.franc.shopfashion.Model.Fashion;
 import com.example.franc.shopfashion.Model.Menu;
 import com.example.franc.shopfashion.Model.User;
@@ -29,8 +32,9 @@ public class Common {
     public static String chooseColor = "-1"; //-1 no choose
 
     //Database
-    public static CartDatabase cartDatabase;
+    public static NNRoomDatabase nnRoomDatabase;
     public static CartRepository cartRepository;
+    public static FavoriteRepository favoriteRepository;
 
 
 }

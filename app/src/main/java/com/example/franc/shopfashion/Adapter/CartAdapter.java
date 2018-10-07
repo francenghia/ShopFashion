@@ -17,7 +17,7 @@ import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     private Context context;
-    private List<Cart> cartList ;
+    private List<Cart> cartList;
 
     public CartAdapter(Context context, List<Cart> cartList) {
         this.context = context;
@@ -27,7 +27,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     @NonNull
     @Override
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v =LayoutInflater.from(context).inflate(R.layout.cart_item_layout,null);
+        View v = LayoutInflater.from(context).inflate(R.layout.cart_item_layout, null);
         return new CartViewHolder(v);
     }
 
@@ -57,5 +57,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     @Override
     public int getItemCount() {
         return cartList.size();
+    }
+
+    public void removeItem(int deleteIndex) {
+        cartList.remove(deleteIndex);
+        notifyDataSetChanged();
+    }
+
+    public void restoreItem(Cart deleteItem, int deleteIndex) {
+        cartList.add(deleteIndex, deleteItem);
+        notifyDataSetChanged();
     }
 }

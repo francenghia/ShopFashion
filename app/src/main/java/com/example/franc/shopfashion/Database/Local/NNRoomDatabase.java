@@ -7,17 +7,21 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import com.example.franc.shopfashion.Database.ModelDB.Cart;
+import com.example.franc.shopfashion.Database.ModelDB.Favorite;
 
-@Database(entities = {Cart.class},version = 2)
-public abstract class CartDatabase extends RoomDatabase{
+@Database(entities = {Cart.class, Favorite.class},version = 1)
+public abstract class NNRoomDatabase extends RoomDatabase{
     public abstract CardDAOs cartDAOs();
 
-    private static CartDatabase instance ;
+    public abstract FavoriteDAOs favoriteDAOs();
 
-    public static CartDatabase getInstance(Context context)
+
+    private static NNRoomDatabase instance ;
+
+    public static NNRoomDatabase getInstance(Context context)
     {
-        if(instance ==null)
-            instance = Room.databaseBuilder(context,CartDatabase.class,"FRANCENGHIA_SHOPFASHION_DB")
+        if(instance == null)
+            instance = Room.databaseBuilder(context,NNRoomDatabase.class,"FRANCENGHIA_SHOPFASHION_DB")
             .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
             .build();

@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.franc.shopfashion.Common.Common;
+import com.example.franc.shopfashion.Database.ModelDB.Favorite;
 import com.example.franc.shopfashion.DetailsProductFashion;
 import com.example.franc.shopfashion.Interface.ItemClickListener;
 import com.example.franc.shopfashion.Model.Fashion;
@@ -35,7 +37,7 @@ public class FashionAdapter extends RecyclerView.Adapter<FashionViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FashionViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final FashionViewHolder holder, final int position) {
         holder.txt_fashion_name.setText(fashionList.get(position).Name);
         holder.txt_fashion_price.setText(new StringBuilder("$").append(fashionList.get(position).Price));
 
@@ -51,7 +53,32 @@ public class FashionAdapter extends RecyclerView.Adapter<FashionViewHolder> {
             }
         });
 
+       //Change image
+        if(Common.favoriteRepository.isFavorite(Integer.parseInt(fashionList.get(position).ID)) == 1) {
+            holder.btn_favorite.setImageResource(R.drawable.ic_favorite_black_24dp);
+        }
+        else {
+            holder.btn_favorite.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+        }
 
+
+        //Show Detail
+        holder.btn_favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Common.favoriteRepository.isFavorite(Integer.parseInt(fashionList.get(position).ID))!=1)
+                {
+                    addOrRemoveToFavorite(fashionList.get(position),true);
+                    holder.btn_favorite.setImageResource(R.drawable.ic_favorite_black_24dp);
+                }else
+                {
+                    addOrRemoveToFavorite(fashionList.get(position),false);
+                    holder.btn_favorite.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                }
+            }
+        });
+
+        //Favorite
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +87,21 @@ public class FashionAdapter extends RecyclerView.Adapter<FashionViewHolder> {
             }
         });
     }
+
+    private void addOrRemoveToFavorite(Fashion fashion, boolean isFavorite) {
+        Favorite favorite = new Favorite();
+        favorite.id = fashion.ID;
+        favorite.link = fashion.Link;
+        favorite.name = fashion.Name;
+        favorite.price = fashion.Price;
+        favorite.menuId = fashion.MenuId;
+
+        if(isFavorite)
+            Common.favoriteRepository.InsetFav(favorite);
+        else
+            Common.favoriteRepository.delete(favorite);
+    }
+
 
     @Override
     public int getItemCount() {

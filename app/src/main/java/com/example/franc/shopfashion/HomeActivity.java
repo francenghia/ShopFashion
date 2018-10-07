@@ -29,8 +29,10 @@ import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.franc.shopfashion.Adapter.MenuAdapter;
 import com.example.franc.shopfashion.Common.Common;
 import com.example.franc.shopfashion.Database.DataSource.CartRepository;
+import com.example.franc.shopfashion.Database.DataSource.FavoriteRepository;
 import com.example.franc.shopfashion.Database.Local.CartDataSource;
-import com.example.franc.shopfashion.Database.Local.CartDatabase;
+import com.example.franc.shopfashion.Database.Local.FavoriteDataSource;
+import com.example.franc.shopfashion.Database.Local.NNRoomDatabase;
 import com.example.franc.shopfashion.Interface.UploadCallBack;
 import com.example.franc.shopfashion.Model.Banner;
 import com.example.franc.shopfashion.Model.Menu;
@@ -78,8 +80,8 @@ public class HomeActivity extends AppCompatActivity implements UploadCallBack {
 
     Uri selectFileUri;
 
-    //Log out
-    private TextView txtLogout;
+    //nav
+    private TextView txtLogout ,txtFavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +112,8 @@ public class HomeActivity extends AppCompatActivity implements UploadCallBack {
         TextView txtPhone = guillotineMenu.findViewById(R.id.txtPhone);
         img_avatar = guillotineMenu.findViewById(R.id.img_avatar);
         txtLogout = guillotineMenu.findViewById(R.id.txtLogout);
+        txtFavorite=guillotineMenu.findViewById(R.id.txtFavorite);
+
 
         //Log out
         txtLogout.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +140,14 @@ public class HomeActivity extends AppCompatActivity implements UploadCallBack {
                     }
                 });
                 builder.show();
+            }
+        });
+
+
+        txtFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this,FavoriteListActivity.class));
             }
         });
 
@@ -277,8 +289,9 @@ public class HomeActivity extends AppCompatActivity implements UploadCallBack {
     }
 
     private void initDB() {
-        Common.cartDatabase = CartDatabase.getInstance(this);
-        Common.cartRepository = CartRepository.getInstance(CartDataSource.getInstance(Common.cartDatabase.cartDAOs()));
+        Common.nnRoomDatabase = NNRoomDatabase.getInstance(this);
+        Common.cartRepository = CartRepository.getInstance(CartDataSource.getInstance(Common.nnRoomDatabase.cartDAOs()));
+        Common.favoriteRepository = FavoriteRepository.getInstance(FavoriteDataSource.getInstance(Common.nnRoomDatabase.favoriteDAOs()));
     }
 
     private void getMenu() {

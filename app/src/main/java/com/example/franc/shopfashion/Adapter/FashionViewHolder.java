@@ -13,7 +13,7 @@ public class FashionViewHolder extends RecyclerView.ViewHolder implements View.O
     public ImageView imageFashion;
     public TextView txt_fashion_name,txt_fashion_price;
 
-    public Button btn_add_to_cart;
+    public ImageView btn_add_to_cart,btn_favorite;
 
     ItemClickListener itemClickListener;
     public FashionViewHolder(View itemView) {
@@ -22,6 +22,8 @@ public class FashionViewHolder extends RecyclerView.ViewHolder implements View.O
         txt_fashion_name =itemView.findViewById(R.id.txt_fashion_name);
         txt_fashion_price=itemView.findViewById(R.id.txt_price);
         btn_add_to_cart=itemView.findViewById(R.id.btn_add_cart);
+        btn_favorite=itemView.findViewById(R.id.btn_favorite);
+
         itemView.setOnClickListener(this);
     }
 

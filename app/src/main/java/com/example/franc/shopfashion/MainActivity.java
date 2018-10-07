@@ -21,7 +21,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.franc.shopfashion.Common.Common;
-import com.example.franc.shopfashion.Database.Local.CartDatabase;
 import com.example.franc.shopfashion.Model.IsUserRes;
 import com.example.franc.shopfashion.Model.User;
 import com.example.franc.shopfashion.Retrofit2Fashion.FashionAPIObservable;

@@ -6,5 +6,7 @@
     <string name="feed">FEED</string>
     <string name="activity">HOME</string>
     <string name="settings">SETTINGS</string>
+    <string name="_200_000_ng">200.000 đồng</string>
+    <string name="short_green">Short Green</string>
 
 </resources>

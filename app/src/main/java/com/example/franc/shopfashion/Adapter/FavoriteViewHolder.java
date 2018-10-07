@@ -7,27 +7,20 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.franc.shopfashion.R;
 
-public class CartViewHolder extends RecyclerView.ViewHolder {
-    public ImageView img_Product ;
-    public TextView txt_product_name,txt_product_color,txt_product_size,txt_price;
-    public ElegantNumberButton txt_amount;
+public class FavoriteViewHolder extends RecyclerView.ViewHolder {
+    public ImageView image_product;
+    public TextView txt_product_name,txt_price;
+
     public RelativeLayout view_background;
     public LinearLayout view_foreground;
-
-    public CartViewHolder(View itemView) {
+    public FavoriteViewHolder(View itemView) {
         super(itemView);
-
-        img_Product = itemView.findViewById(R.id.image_product);
+        image_product = itemView.findViewById(R.id.image_product);
         txt_product_name = itemView.findViewById(R.id.txt_product_name);
-        txt_product_color = itemView.findViewById(R.id.txt_product_color);
-        txt_product_size = itemView.findViewById(R.id.txt_product_size);
         txt_price = itemView.findViewById(R.id.txt_price);
-        txt_amount = itemView.findViewById(R.id.txt_amount);
         view_background = itemView.findViewById(R.id.view_background);
         view_foreground = itemView.findViewById(R.id.view_foreground);
-
     }
 }
